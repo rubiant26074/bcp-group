@@ -21,9 +21,9 @@ class ArticleResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Content Management';
 
-    protected static ?string $navigationLabel = 'News & Updates';
-
     protected static ?int $navigationSort = 3;
+
+    protected static ?string $navigationLabel = 'News & Updates';
 
     public static function form(Schema $schema): Schema
     {
@@ -40,7 +40,7 @@ class ArticleResource extends Resource
                 Forms\Components\DateTimePicker::make('published_at')
                     ->default(now()),
                 Forms\Components\FileUpload::make('image')
-                    ->label('Featured Image')
+                    ->label('Cover Image')
                     ->image()
                     ->disk('public')
                     ->directory('articles')
@@ -59,12 +59,10 @@ class ArticleResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('image')->disk('public'),
-                Tables\Columns\TextColumn::make('title')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('slug')->searchable(),
+                Tables\Columns\TextColumn::make('title')->searchable()->sortable()->wrap(),
+                Tables\Columns\TextColumn::make('slug')->searchable()->wrap(),
                 Tables\Columns\TextColumn::make('published_at')->dateTime()->sortable(),
-                Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable(),
             ])
-            ->defaultSort('published_at', 'desc')
             ->filters([])
             ->actions([
                 Actions\EditAction::make(),

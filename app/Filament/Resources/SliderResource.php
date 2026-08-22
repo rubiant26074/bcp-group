@@ -17,13 +17,13 @@ class SliderResource extends Resource
 {
     protected static ?string $model = Slider::class;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-photo';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-presentation-chart-bar';
 
     protected static string|UnitEnum|null $navigationGroup = 'Content Management';
 
-    protected static ?string $navigationLabel = 'Hero Sliders';
-
     protected static ?int $navigationSort = 4;
+
+    protected static ?string $navigationLabel = 'Hero Sliders';
 
     public static function form(Schema $schema): Schema
     {
@@ -31,37 +31,35 @@ class SliderResource extends Resource
             ->components([
                 Forms\Components\TextInput::make('title')
                     ->required()
-                    ->maxLength(255)
-                    ->placeholder('e.g. PT BERKAH CIPTA PERSADA'),
-                Forms\Components\Textarea::make('subtitle')
-                    ->rows(2)
-                    ->placeholder('Slide description or tagline text'),
-                Forms\Components\TextInput::make('button_text')
-                    ->placeholder('e.g. Explore Our Products'),
-                Forms\Components\TextInput::make('button_url')
-                    ->placeholder('e.g. /produk, /contact'),
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('subtitle')
+                    ->maxLength(255),
                 Forms\Components\FileUpload::make('image')
-                    ->label('Slide Background Image')
+                    ->label('Slider Background Image')
                     ->image()
                     ->disk('public')
                     ->directory('sliders')
                     ->visibility('public')
                     ->columnSpanFull(),
+                Forms\Components\TextInput::make('button_text')
+                    ->label('Button Text (e.g. Explore Our Products)'),
+                Forms\Components\TextInput::make('button_url')
+                    ->label('Button Target URL (e.g. /produk)'),
                 Forms\Components\TextInput::make('height')
-                    ->label('Ketinggian Slider (px)')
+                    ->label('Slider Height (in pixels)')
                     ->numeric()
-                    ->suffix('px')
                     ->default(500)
-                    ->placeholder('500')
-                    ->helperText('Ukuran tinggi slider dalam piksel (contoh: 450, 500, atau 600)'),
+                    ->suffix('px')
+                    ->helperText('Setting height applies globally to the Hero Slider container'),
                 Forms\Components\TextInput::make('overlay_opacity')
-                    ->label('Kegelapan Overlay / Transparansi Filter (%)')
+                    ->label('Background Darkness / Overlay Opacity (%)')
                     ->numeric()
-                    ->suffix('%')
                     ->default(40)
-                    ->placeholder('40')
-                    ->helperText('0% = Gambar asli terang tanpa filter gelap, 100% = Sangat gelap. Disarankan 20-50%'),
-                Forms\Components\TextInput::make('order')
+                    ->suffix('%')
+                    ->minValue(0)
+                    ->maxValue(100)
+                    ->helperText('0% = full original brightness, 100% = full dark'),
+                Forms\Components\TextInput::make('sort_order')
                     ->numeric()
                     ->default(0),
                 Forms\Components\Toggle::make('is_active')
@@ -74,13 +72,14 @@ class SliderResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('image')->disk('public'),
-                Tables\Columns\TextColumn::make('title')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('height')->suffix(' px')->label('Height'),
-                Tables\Columns\TextColumn::make('overlay_opacity')->suffix('%')->label('Dark Overlay'),
-                Tables\Columns\TextColumn::make('order')->sortable(),
+                Tables\Columns\TextColumn::make('title')->searchable()->sortable()->wrap(),
+                Tables\Columns\TextColumn::make('subtitle')->limit(40)->wrap(),
+                Tables\Columns\TextColumn::make('height')->suffix('px'),
+                Tables\Columns\TextColumn::make('overlay_opacity')->label('Darkness')->suffix('%'),
+                Tables\Columns\TextColumn::make('sort_order')->sortable(),
                 Tables\Columns\IconColumn::make('is_active')->boolean(),
             ])
-            ->defaultSort('order')
+            ->defaultSort('sort_order')
             ->filters([])
             ->actions([
                 Actions\EditAction::make(),

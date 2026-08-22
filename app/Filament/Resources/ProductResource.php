@@ -60,9 +60,9 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('image')->disk('public'),
-                Tables\Columns\TextColumn::make('title')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('category.name')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('slug')->searchable(),
+                Tables\Columns\TextColumn::make('title')->searchable()->sortable()->wrap(),
+                Tables\Columns\TextColumn::make('category.name')->sortable()->searchable()->wrap(),
+                Tables\Columns\TextColumn::make('slug')->searchable()->wrap(),
                 Tables\Columns\TextColumn::make('updated_at')->dateTime()->sortable(),
             ])
             ->filters([])

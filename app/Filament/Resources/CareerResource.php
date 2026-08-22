@@ -33,17 +33,14 @@ class CareerResource extends Resource
                 Forms\Components\TextInput::make('department')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('location')
-                    ->maxLength(255),
+                    ->default('Cikupa, Tangerang'),
                 Forms\Components\TextInput::make('type')
-                    ->default('Full-time'),
-                Forms\Components\Select::make('status')
-                    ->options([
-                        'active' => 'Active / Hiring',
-                        'closed' => 'Closed',
-                    ])
-                    ->default('active'),
-                Forms\Components\Textarea::make('description')
-                    ->rows(4)
+                    ->default('Full Time'),
+                Forms\Components\Toggle::make('is_active')
+                    ->default(true),
+                Forms\Components\RichEditor::make('description')
+                    ->columnSpanFull(),
+                Forms\Components\RichEditor::make('requirements')
                     ->columnSpanFull(),
             ]);
     }
@@ -52,11 +49,11 @@ class CareerResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('department')->searchable(),
-                Tables\Columns\TextColumn::make('location'),
-                Tables\Columns\TextColumn::make('status')->badge(),
-                Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable(),
+                Tables\Columns\TextColumn::make('title')->searchable()->sortable()->wrap(),
+                Tables\Columns\TextColumn::make('department')->searchable()->wrap(),
+                Tables\Columns\TextColumn::make('location')->searchable(),
+                Tables\Columns\TextColumn::make('type'),
+                Tables\Columns\IconColumn::make('is_active')->boolean(),
             ])
             ->filters([])
             ->actions([

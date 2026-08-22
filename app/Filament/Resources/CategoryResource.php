@@ -36,7 +36,6 @@ class CategoryResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('description')
-                    ->rows(3)
                     ->columnSpanFull(),
             ]);
     }
@@ -45,8 +44,8 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('slug')->searchable(),
+                Tables\Columns\TextColumn::make('name')->searchable()->sortable()->wrap(),
+                Tables\Columns\TextColumn::make('slug')->searchable()->wrap(),
                 Tables\Columns\TextColumn::make('products_count')->counts('products')->label('Total Products'),
             ])
             ->filters([])

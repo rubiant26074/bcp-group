@@ -35,13 +35,13 @@ class PageResource extends Resource
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Toggle::make('is_published')
+                    ->default(true),
                 Forms\Components\Textarea::make('meta_description')
                     ->rows(2)
                     ->columnSpanFull(),
                 Forms\Components\RichEditor::make('content')
                     ->columnSpanFull(),
-                Forms\Components\Toggle::make('is_published')
-                    ->default(true),
             ]);
     }
 
@@ -49,10 +49,10 @@ class PageResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('slug')->searchable(),
+                Tables\Columns\TextColumn::make('title')->searchable()->sortable()->wrap(),
+                Tables\Columns\TextColumn::make('slug')->searchable()->wrap(),
                 Tables\Columns\IconColumn::make('is_published')->boolean(),
-                Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable(),
+                Tables\Columns\TextColumn::make('updated_at')->dateTime()->sortable(),
             ])
             ->filters([])
             ->actions([
