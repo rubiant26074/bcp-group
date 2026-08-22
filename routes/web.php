@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PageController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -26,3 +27,5 @@ Route::get('/about-us', function () {
 Route::get('/gallery', function () {
     return view('pages.gallery');
 })->name('gallery');
+
+Route::get('/page/{slug}', [PageController::class, 'show'])->name('pages.show');
