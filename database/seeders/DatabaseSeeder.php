@@ -25,6 +25,16 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        // Site Settings
+        \App\Models\Setting::firstOrCreate(
+            ['key' => 'maintenance_mode'],
+            [
+                'label' => 'Under Construction (Maintenance Mode)',
+                'value' => 'false',
+                'type' => 'boolean'
+            ]
+        );
+
         // Seed Hero Sliders
         Slider::firstOrCreate(
             ['title' => 'PT BERKAH CIPTA PERSADA'],
