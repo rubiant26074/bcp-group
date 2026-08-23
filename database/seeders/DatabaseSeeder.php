@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             ['email' => 'admin@berkahcipta.co.id'],
             [
                 'name' => 'Administrator BCP',
-                'password' => bcrypt('password')
+                'password' => bcrypt('password'),
+                'role' => 'admin'
             ]
         );
 
