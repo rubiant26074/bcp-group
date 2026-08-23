@@ -13,6 +13,8 @@ use App\Models\Slider;
 
 class StatsOverview extends BaseWidget
 {
+    protected static bool $isLazy = false;
+
     protected static ?int $sort = 1;
 
     protected function getStats(): array

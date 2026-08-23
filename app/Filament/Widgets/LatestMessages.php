@@ -10,6 +10,8 @@ use Filament\Actions;
 
 class LatestMessages extends BaseWidget
 {
+    protected static bool $isLazy = false;
+
     protected static ?int $sort = 2;
 
     protected int | string | array $columnSpan = 'full';
