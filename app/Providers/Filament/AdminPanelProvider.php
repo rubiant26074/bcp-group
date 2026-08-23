@@ -37,8 +37,8 @@ class AdminPanelProvider extends PanelProvider
             ->favicon(asset('assets/seclone/bcp-logo.png'))
             ->themeSwitcher(false)
             ->renderHook(
-                \Filament\View\PanelsRenderHook::SIDEBAR_FOOTER,
-                fn (): string => \Illuminate\Support\Facades\Blade::render('<div class="flex justify-center p-4 border-t border-gray-100 dark:border-gray-800"><x-filament-panels::theme-switcher /></div>'),
+                \Filament\View\PanelsRenderHook::USER_MENU_BEFORE,
+                fn (): string => \Illuminate\Support\Facades\Blade::render('<div class="flex items-center mx-2"><x-filament-panels::theme-switcher /></div>'),
             )
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
