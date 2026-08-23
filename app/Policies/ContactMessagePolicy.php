@@ -1,59 +1,75 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use App\Models\User;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\ContactMessage;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ContactMessagePolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    use HandlesAuthorization;
+    
+    public function viewAny(AuthUser $authUser): bool
     {
-        // Admin, editor, and staff can view inquiries
-        return in_array($user->role, ['admin', 'editor', 'staff']);
+        return $authUser->can('ViewAny:ContactMessage');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, ContactMessage $contactMessage): bool
+    public function view(AuthUser $authUser, ContactMessage $contactMessage): bool
     {
-        return in_array($user->role, ['admin', 'editor', 'staff']);
+        return $authUser->can('View:ContactMessage');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(AuthUser $authUser): bool
     {
-        // Public forms create these, they shouldn't be created inside the admin panel
-        return false;
+        return $authUser->can('Create:ContactMessage');
     }
 
-    /**
-     * Determine whether the user can update the model (e.g. mark as read).
-     */
-    public function update(User $user, ContactMessage $contactMessage): bool
+    public function update(AuthUser $authUser, ContactMessage $contactMessage): bool
     {
-        return in_array($user->role, ['admin', 'editor', 'staff']);
+        return $authUser->can('Update:ContactMessage');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, ContactMessage $contactMessage): bool
+    public function delete(AuthUser $authUser, ContactMessage $contactMessage): bool
     {
-        return $user->role === 'admin';
+        return $authUser->can('Delete:ContactMessage');
     }
 
-    /**
-     * Determine whether the user can bulk delete models.
-     */
-    public function deleteAny(User $user): bool
+    public function deleteAny(AuthUser $authUser): bool
     {
-        return $user->role === 'admin';
+        return $authUser->can('DeleteAny:ContactMessage');
     }
+
+    public function restore(AuthUser $authUser, ContactMessage $contactMessage): bool
+    {
+        return $authUser->can('Restore:ContactMessage');
+    }
+
+    public function forceDelete(AuthUser $authUser, ContactMessage $contactMessage): bool
+    {
+        return $authUser->can('ForceDelete:ContactMessage');
+    }
+
+    public function forceDeleteAny(AuthUser $authUser): bool
+    {
+        return $authUser->can('ForceDeleteAny:ContactMessage');
+    }
+
+    public function restoreAny(AuthUser $authUser): bool
+    {
+        return $authUser->can('RestoreAny:ContactMessage');
+    }
+
+    public function replicate(AuthUser $authUser, ContactMessage $contactMessage): bool
+    {
+        return $authUser->can('Replicate:ContactMessage');
+    }
+
+    public function reorder(AuthUser $authUser): bool
+    {
+        return $authUser->can('Reorder:ContactMessage');
+    }
+
 }

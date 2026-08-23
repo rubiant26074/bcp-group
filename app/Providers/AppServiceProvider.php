@@ -21,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        \Illuminate\Support\Facades\Gate::policy(
+            \Spatie\Permission\Models\Role::class,
+            \App\Policies\RolePolicy::class
+        );
+
         View::composer('layouts.app', function ($view) {
             $menuItems = MenuItem::whereNull('parent_id')
                 ->where('is_active', true)
