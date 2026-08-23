@@ -46,6 +46,7 @@
 
                 <form action="{{ route('contact.store') }}" method="POST">
                     @csrf
+                    <x-honeypot />
                     <div style="margin-bottom:15px;">
                         <label style="display:block; font-weight:600; margin-bottom:5px;">Full Name *</label>
                         <input type="text" name="name" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;" value="{{ old('name') }}">

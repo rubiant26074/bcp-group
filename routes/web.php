@@ -18,7 +18,9 @@ Route::get('/news-updates/{slug}', [NewsController::class, 'show'])->name('news.
 
 Route::get('/careers', [CareerController::class, 'index'])->name('careers');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:3,1')->name('contact.store');
+Route::post('/contact', [ContactController::class, 'store'])
+    ->middleware(['throttle:3,1', \Spatie\Honeypot\ProtectAgainstSpam::class])
+    ->name('contact.store');
 
 Route::get('/about-us', function () {
     return view('pages.about');
