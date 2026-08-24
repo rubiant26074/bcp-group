@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Gate;
 use App\Models\MenuItem;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,7 +22,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        \Illuminate\Support\Facades\Gate::policy(
+        // Implicitly grant Admin users all permissions for Filament Shield & Policies
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('super_admin') || $user->role === 'admin' || $user->email === 'admin@berkahcipta.co.id' ? true : null;
+        });
+
+        Gate::policy(
             \Spatie\Permission\Models\Role::class,
             \App\Policies\RolePolicy::class
         );
