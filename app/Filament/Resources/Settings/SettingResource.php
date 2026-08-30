@@ -5,13 +5,13 @@ namespace App\Filament\Resources\Settings;
 use App\Filament\Resources\Settings\Pages\ManageSettings;
 use App\Models\Setting;
 use BackedEnum;
+use UnitEnum;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Textarea;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
@@ -20,11 +20,15 @@ class SettingResource extends Resource
 {
     protected static ?string $model = Setting::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCog6Tooth;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-cog-6-tooth';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Settings';
+
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'label';
 
-    protected static ?string $navigationLabel = 'Site Settings';
+    protected static ?string $navigationLabel = 'Site Settings & Maintenance';
 
     protected static ?string $modelLabel = 'Setting';
 
@@ -38,7 +42,7 @@ class SettingResource extends Resource
                     ->dehydrated(false),
                 
                 Toggle::make('value')
-                    ->label('Status')
+                    ->label('Status (Active = Under Construction / Maintenance Mode ON)')
                     ->visible(fn ($record) => $record?->type === 'boolean')
                     ->dehydrateStateUsing(fn ($state) => $state ? 'true' : 'false')
                     ->afterStateHydrated(fn ($component, $state) => $component->state($state === 'true')),
@@ -61,25 +65,23 @@ class SettingResource extends Resource
                 TextColumn::make('label')
                     ->label('Setting Name')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->wrap(),
                 TextColumn::make('value')
-                    ->label('Current Value')
+                    ->label('Current Status / Value')
                     ->formatStateUsing(function ($state, Setting $record) {
                         if ($record->type === 'boolean') {
-                            return $state === 'true' ? 'Active' : 'Inactive';
+                            return $state === 'true' ? 'Maintenance Mode ON (Under Construction)' : 'Normal (Website Live)';
                         }
                         return $state;
-                    }),
+                    })
+                    ->wrap(),
             ])
-            ->filters([
-                //
+            ->filters([])
+            ->actions([
+                \Filament\Actions\EditAction::make(),
             ])
-            ->recordActions([
-                EditAction::make(),
-            ])
-            ->toolbarActions([
-                //
-            ]);
+            ->bulkActions([]);
     }
 
     public static function getPages(): array
