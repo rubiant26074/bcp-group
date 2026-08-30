@@ -69,6 +69,17 @@ class ArticleResource extends Resource
                     ->fileAttachmentsDisk('public')
                     ->fileAttachmentsDirectory('articles')
                     ->fileAttachmentsVisibility('public')
+                    ->fileAttachmentsAcceptedFileTypes([
+                        'image/*',
+                        'application/pdf',
+                        'application/msword',
+                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                        'application/vnd.ms-excel',
+                        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                        'application/zip',
+                        'application/x-zip-compressed',
+                        'text/plain',
+                    ])
                     ->columnSpanFull(),
             ]);
     }
