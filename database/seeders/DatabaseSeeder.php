@@ -36,6 +36,33 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        \App\Models\Setting::firstOrCreate(
+            ['key' => 'contact_address'],
+            [
+                'label' => 'Office Address',
+                'value' => "PT. Berkah Cipta Persada\nKawasan Industri Jababeka 1, Jl. Jababeka Raya Blok B No. 12, Cikarang, Bekasi",
+                'type' => 'textarea'
+            ]
+        );
+
+        \App\Models\Setting::firstOrCreate(
+            ['key' => 'contact_phone'],
+            [
+                'label' => 'Sales Phone / WhatsApp',
+                'value' => '(021) 8983-xxxx / +62 812-XXXX-XXXX',
+                'type' => 'text'
+            ]
+        );
+
+        \App\Models\Setting::firstOrCreate(
+            ['key' => 'contact_email'],
+            [
+                'label' => 'Technical & Commercial Email',
+                'value' => 'sales@berkahcipta.co.id / info@berkahcipta.co.id',
+                'type' => 'text'
+            ]
+        );
+
         // Seed Hero Sliders
         Slider::firstOrCreate(
             ['title' => 'PT BERKAH CIPTA PERSADA'],

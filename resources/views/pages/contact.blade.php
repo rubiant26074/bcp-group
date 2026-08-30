@@ -20,17 +20,17 @@
                 
                 <div style="margin-bottom:20px;">
                     <strong style="display:block; color:var(--se-dark); font-size:1.05rem;">Head Office & Works:</strong>
-                    <p style="color:#555; margin-top:5px; line-height:1.6;">PT. Berkah Cipta Persada<br>Kawasan Industri Jababeka 1, Jl. Jababeka Raya Blok B No. 12, Cikarang, Bekasi</p>
+                    <p style="color:#555; margin-top:5px; line-height:1.6;">{!! nl2br(e(App\Models\Setting::get('contact_address', "PT. Berkah Cipta Persada\nKawasan Industri Jababeka 1, Jl. Jababeka Raya Blok B No. 12, Cikarang, Bekasi"))) !!}</p>
                 </div>
 
                 <div style="margin-bottom:20px;">
                     <strong style="display:block; color:var(--se-dark); font-size:1.05rem;">Sales Phone / WhatsApp:</strong>
-                    <p style="color:#555; margin-top:5px;">(021) 8983-xxxx / +62 812-XXXX-XXXX</p>
+                    <p style="color:#555; margin-top:5px;">{{ App\Models\Setting::get('contact_phone', '(021) 8983-xxxx / +62 812-XXXX-XXXX') }}</p>
                 </div>
 
                 <div style="margin-bottom:20px;">
                     <strong style="display:block; color:var(--se-dark); font-size:1.05rem;">Technical & Commercial Email:</strong>
-                    <p style="color:#555; margin-top:5px;">sales@berkahcipta.co.id / info@berkahcipta.co.id</p>
+                    <p style="color:#555; margin-top:5px;">{{ App\Models\Setting::get('contact_email', 'sales@berkahcipta.co.id / info@berkahcipta.co.id') }}</p>
                 </div>
             </div>
 
