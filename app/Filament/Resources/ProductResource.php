@@ -67,6 +67,9 @@ class ProductResource extends Resource
                         'undo',
                         'source-code',
                     ])
+                    ->fileAttachmentsDisk('public')
+                    ->fileAttachmentsDirectory('products')
+                    ->fileAttachmentsVisibility('public')
                     ->columnSpanFull(),
             ]);
     }

@@ -55,6 +55,9 @@ class CareerResource extends Resource
                         'undo',
                         'source-code',
                     ])
+                    ->fileAttachmentsDisk('public')
+                    ->fileAttachmentsDirectory('careers')
+                    ->fileAttachmentsVisibility('public')
                     ->columnSpanFull(),
                 Forms\Components\RichEditor::make('requirements')
                     ->toolbarButtons([
@@ -73,6 +76,9 @@ class CareerResource extends Resource
                         'undo',
                         'source-code',
                     ])
+                    ->fileAttachmentsDisk('public')
+                    ->fileAttachmentsDirectory('careers')
+                    ->fileAttachmentsVisibility('public')
                     ->columnSpanFull(),
             ]);
     }

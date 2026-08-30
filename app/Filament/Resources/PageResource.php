@@ -57,6 +57,9 @@ class PageResource extends Resource
                         'undo',
                         'source-code',
                     ])
+                    ->fileAttachmentsDisk('public')
+                    ->fileAttachmentsDirectory('pages')
+                    ->fileAttachmentsVisibility('public')
                     ->columnSpanFull(),
             ]);
     }

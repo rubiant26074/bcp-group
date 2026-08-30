@@ -66,6 +66,9 @@ class ArticleResource extends Resource
                         'undo',
                         'source-code',
                     ])
+                    ->fileAttachmentsDisk('public')
+                    ->fileAttachmentsDirectory('articles')
+                    ->fileAttachmentsVisibility('public')
                     ->columnSpanFull(),
             ]);
     }
