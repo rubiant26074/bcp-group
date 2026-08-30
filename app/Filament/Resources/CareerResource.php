@@ -39,8 +39,40 @@ class CareerResource extends Resource
                 Forms\Components\Toggle::make('is_active')
                     ->default(true),
                 Forms\Components\RichEditor::make('description')
+                    ->toolbarButtons([
+                        'attachFiles',
+                        'blockquote',
+                        'bold',
+                        'bulletList',
+                        'codeBlock',
+                        'h2',
+                        'h3',
+                        'italic',
+                        'link',
+                        'orderedList',
+                        'redo',
+                        'strike',
+                        'undo',
+                        'source-code',
+                    ])
                     ->columnSpanFull(),
                 Forms\Components\RichEditor::make('requirements')
+                    ->toolbarButtons([
+                        'attachFiles',
+                        'blockquote',
+                        'bold',
+                        'bulletList',
+                        'codeBlock',
+                        'h2',
+                        'h3',
+                        'italic',
+                        'link',
+                        'orderedList',
+                        'redo',
+                        'strike',
+                        'undo',
+                        'source-code',
+                    ])
                     ->columnSpanFull(),
             ]);
     }

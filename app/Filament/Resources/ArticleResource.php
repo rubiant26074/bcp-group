@@ -50,6 +50,22 @@ class ArticleResource extends Resource
                     ->rows(3)
                     ->columnSpanFull(),
                 Forms\Components\RichEditor::make('content')
+                    ->toolbarButtons([
+                        'attachFiles',
+                        'blockquote',
+                        'bold',
+                        'bulletList',
+                        'codeBlock',
+                        'h2',
+                        'h3',
+                        'italic',
+                        'link',
+                        'orderedList',
+                        'redo',
+                        'strike',
+                        'undo',
+                        'source-code',
+                    ])
                     ->columnSpanFull(),
             ]);
     }
